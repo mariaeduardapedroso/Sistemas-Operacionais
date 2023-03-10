@@ -3,9 +3,15 @@
 int tamanhoString(char *str)
 {
     int i = 0;
-    while (str[i] != '\0')
+    // while (str[i] != '\0')
+    // {
+    //     i++;
+    // }
+
+    while (*str != '\0')
     {
         i++;
+        str++;
     }
 
     return i;
