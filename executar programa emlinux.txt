@@ -1,0 +1,4 @@
+COMPILAR ARQUIVO .C NO LINUX
+1 -> ir até a pasta contendo o arquivo .c que queremos executar
+2 -> gcc -o nomeCompilado nomeArquivo.c
+3 -> ./nomeCompilado
