@@ -1,18 +1,51 @@
 Objetivo: investigar o funcionamento de processos no linux.
 
 1) Processos no linux compartilham dados?
-int main(){
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/wait.h>
 
-int var = 0;
-int pid;
+int main()
+{
 
-pid = Fork();
+    int var = 0;
+    int pid;
 
-if (pid == 0){
+    pid = fork();
 
+    // filho
+    if (pid == 0)
+    {
+        var = 5;
+        printf("Filho: %d", var);
+    }
+    else
+    {
+        if (pid > 0)
+        {
+            var += 10;
+            printf("Pai: %d", var);
+        }
+        else
+        {
+            printf("Erro na criacao do filho");
+        }
+    }
 }
-}
+/*
+a2150336@pxe-ubuntu:~$ gcc -o ex oi.c
+a2150336@pxe-ubuntu:~$ /ex
+bash: /ex: Arquivo ou diretório inexistente
+a2150336@pxe-ubuntu:~$ ./ex
+Pai: 10Filho: 5
+*/
+pelo que podemos notar eles não compartilham status
+
 2) Quando o pai de um processo morre o filho continua existindo?
+SIM, ele continua existindo como zumbi
+
+
 
 3) Os processos compartilham arquivos?
 
