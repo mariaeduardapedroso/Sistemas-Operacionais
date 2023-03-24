@@ -40,7 +40,7 @@ bash: /ex: Arquivo ou diretório inexistente
 a2150336@pxe-ubuntu:~$ ./ex
 Pai: 10Filho: 5
 */
-pelo que podemos notar eles não compartilham status
+pelo que podemos notar eles não compartilham dados, cada um mainpula dados do seu endereçamento
 
 2) Quando o pai de um processo morre o filho continua existindo?
 SIM, ele continua existindo como zumbi
@@ -49,6 +49,11 @@ SIM, ele continua existindo como zumbi
 
 3) Os processos compartilham arquivos?
 
+Sim, em sistemas operacionais modernos, os processos podem compartilhar arquivos de diferentes maneiras. Uma maneira comum é através do uso de mecanismos de comunicação interprocessual (IPC) como pipes, sockets e memória compartilhada.
+
+Por exemplo, um processo pode escrever em um arquivo e outro processo pode ler a partir desse arquivo, ou ambos os processos podem escrever e ler a partir do mesmo arquivo usando mecanismos IPC para coordenar o acesso. Além disso, os sistemas operacionais geralmente fornecem mecanismos de controle de acesso para garantir que apenas os processos autorizados possam acessar determinados arquivos.
+
+Também é possível que os processos compartilhem arquivos por meio de um sistema de arquivos em rede, onde vários computadores podem acessar e compartilhar arquivos em um servidor centralizado. Nesse caso, os processos em diferentes máquinas podem acessar e modificar os mesmos arquivos, desde que tenham as permissões de acesso adequadas.
 
 
 Páginas de referência
