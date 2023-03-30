@@ -9,13 +9,15 @@
 
 void imprima(char *string, ...)
 {
+    // tipo de objeto completo adequado para armazenar as informações necessárias para as macros
+    va_list argumentoRecebido;
 
-    va_list argumentos;
-    va_start(argumentos, string);
-
+    // permite o acesso a argumentos de funções variáveis
+    va_start(argumentoRecebido, string);
 
     int size;
     int i = 0;
+
     while (string[i] != '\0')
     {
 
@@ -23,17 +25,26 @@ void imprima(char *string, ...)
         {
 
             i++;
+            // switch (string[i])
+            // {
+            // case 's':
+            //     /* code */
+            //     break;
+
+            // default:
+            //     break;
+            // }
             if (string[i] == 's')
             {
 
-                char *palavra = va_arg(argumentos, char *);
+                char *palavra = va_arg(argumentoRecebido, char *);
                 size = strlen(palavra);
                 write(1, palavra, size);
             }
             else if (string[i] == 'd' || string[i] == 'i')
             {
 
-                long inteiro = va_arg(argumentos, int);
+                long inteiro = va_arg(argumentoRecebido, int);
                 int tamanho = snprintf(NULL, 0, "%ld", inteiro);
                 char *buffer = malloc(tamanho + 1);
                 snprintf(buffer, tamanho + 1, "%ld", inteiro);
@@ -41,13 +52,13 @@ void imprima(char *string, ...)
             }
             else if (string[i] == 'c')
             {
-                char *caracter = va_arg(argumentos, char *);
+                char *caracter = va_arg(argumentoRecebido, char *);
                 write(1, &caracter, 1);
             }
             else if (string[i] == 'f')
             {
 
-                double flutuante = va_arg(argumentos, double);
+                double flutuante = va_arg(argumentoRecebido, double);
                 char buffer[100];
                 gcvt(flutuante, 10, buffer);
                 write(1, buffer, sizeof(flutuante));
@@ -55,7 +66,7 @@ void imprima(char *string, ...)
             else if (string[i] == '0' && string[i + 1] == '.' && (string[i + 2] == '1' || string[i + 2] == '2' || string[i + 2] == '3') && string[i + 3] == 'f')
             {
 
-                double flutuante = va_arg(argumentos, double);
+                double flutuante = va_arg(argumentoRecebido, double);
                 int numero = (int)(string[i + 2] - '0');
                 char buffer[100];
                 gcvt(flutuante, contar_digitos((int)flutuante) + numero, buffer);
@@ -65,14 +76,13 @@ void imprima(char *string, ...)
             else if (string[i] == '.' && (string[i + 1] == '1' || string[i + 1] == '2' || string[i + 1] == '3') && string[i + 2] == 'f')
             {
 
-                double flutuante = va_arg(argumentos, double);
+                double flutuante = va_arg(argumentoRecebido, double);
                 int numero = (int)(string[i + 1] - '0');
                 char buffer[100];
                 gcvt(flutuante, contar_digitos((int)flutuante) + numero, buffer);
                 write(1, buffer, sizeof((int)flutuante) + numero);
                 i += 2;
             }
-            
         }
         else
         {
@@ -82,7 +92,7 @@ void imprima(char *string, ...)
         i++;
     }
 
-    va_end(argumentos);
+    va_end(argumentoRecebido);
 }
 
 int contar_digitos(int n)
