@@ -61,26 +61,26 @@ void imprima(char* frasePassada, ...){
 					{
 						double flutuante = va_arg(args, double);
 						buffer[0] = '\0';
-						char tipofloat[] = {'%','.',(char)frasePassada[i+1],'f'};
+						char tipofloat[] = {'%','.',(char)frasePassada[i+1],'f','\0'};
 						//write(1,tipofloat,4);
 						sprintf(buffer,tipofloat,flutuante);
 						write(1, buffer, sizeof(flutuante));
-						i= i + 2;
+						i= i + 3;
 					}else{
 						write(1, "Erro na sintaxe do printf", 25);
 					}
 					break;
 
 					case '0'://.1 .2 .3 todo 4 5
-					if (frasePassada[i+1] == '.' && (frasePassada[i+2]<=51 && frasePassada[i+2]>=49))
+					if (frasePassada[i+1] == '.' && (frasePassada[i+2]<=51 && frasePassada[i+2]>=49) && frasePassada[i+3] == 'f')
 					{
 						double flutuante = va_arg(args, double);
 						buffer[0] = '\0';
-						char tipofloat[] = {'%','0','.',(char)frasePassada[i+2],'f'};
+						char tipofloat[] = {'%','0','.',(char)frasePassada[i+2],'f','\0'};
 						//write(1,tipofloat,5);
 						sprintf(buffer,tipofloat,flutuante);
 						write(1, buffer, sizeof(flutuante));
-						i = i + 3;
+						i = i + 4;
 						
 					}else{
 						write(1, "Erro na sintaxe do printf", 25);
@@ -136,9 +136,7 @@ int main(){
 	imprima("Numeros %d %f %d %f %d e caracter %c\n\n",  inteiro1, flutuante1, inteiro2, flutuante2, inteiro3, caracter);
 	
 	//EXERCICIO 4
-	imprima("Flutuante com 3 pontos %0.3f\n", flutuante1);
-	imprima("Flutuante com 2 pontos %0.2f\n",  flutuante1);
-	imprima("Flutuante com 3 pontos %0.3f\n", flutuante1);
+	imprima("Flutuante com 3 pontos %.3f\n", flutuante1);
 
 
 	return 0;
