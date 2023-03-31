@@ -64,7 +64,7 @@ void imprima(char *frasePassada, ...)
                     // write(1,tipofloat,4);
                     sprintf(buffer, tipofloat, flutuante);
                     write(1, buffer, sizeof(flutuante));
-                    i = i + 3;
+                    i = i + 2;
                 }
                 else
                 {
@@ -81,7 +81,7 @@ void imprima(char *frasePassada, ...)
                     // write(1,tipofloat,5);
                     sprintf(buffer, tipofloat, flutuante);
                     write(1, buffer, sizeof(flutuante));
-                    i = i + 4;
+                    i = i + 3;
                 }
                 else
                 {
