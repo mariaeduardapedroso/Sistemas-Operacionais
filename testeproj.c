@@ -7,16 +7,6 @@
 #include <stdio.h>
 
 
-int contar_digitos(int n){
-	int count = 0;
-	while (n != 0) {
-		n = n/10;
-		++count;
-	} 
-	return count;
-}
-
-
 
 
 
@@ -96,7 +86,7 @@ void imprima(char* frasePassada, ...){
 						write(1, "Erro na sintaxe do printf", 25);
 					}
 					break;
-					
+
 				default:
 					write(1, "Erro na sintaxe do printf", 25);
 					break;
