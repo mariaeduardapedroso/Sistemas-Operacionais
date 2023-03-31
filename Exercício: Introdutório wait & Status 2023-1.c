@@ -23,84 +23,161 @@ Investigue no manual do wait no Linux (man wait) o funcionamento do comando WEXI
 int main(int argc, char const *argv[])
 {
 
-    int pid;
-    int status;
+    int pid1;
+    int status1;
 
-    pid = fork(); // FORK É O MOMENTO DA CRIAÇÃO DE UM PROCESSO -> COPIA IDENTICA (FILHO) DO PROGRAMA
+    pid1 = fork(); // FORK É O MOMENTO DA CRIAÇÃO DE UM PROCESSO -> COPIA IDENTICA (FILHO) DO PROGRAMA
 
-    if (pid < 0)
+    if (pid1 < 0)
     {
         /* erro no nascimento do filho */
         printf("Erro na chamada fork");
     }
 
-    if (pid == 0)
+    if (pid1 == 0)
     {
         /* é o filho que acabou de nascer */
 
-        int pidneto;
-        int statusneto;
+        int pid2;
+        int status2;
 
-        pidneto = fork();
+        pid2 = fork();
 
-        if (pidneto < 0)
+        if (pid2 < 0)
         {
             /* erro no nascimento do neto */
             printf("Erro na chamada fork");
         }
 
-        if (pidneto == 0)
+        if (pid2 == 0)
         {
             /* é o neto que acabou de nascer */
-            sleep(1);
-            printf("\nEu sou o processo C %d filho de %d", getpid(), getppid());
+            int pid3;
+            int status3;
 
+            pid3 = fork();
 
+            if (pid3 < 0)
+            {
+                /* erro no nascimento do neto */
+                printf("Erro na chamada fork");
+            }
+
+            if (pid3 == 0)
+            {
+                /* é o neto que acabou de nascer */
+                int pid4;
+                int status4;
+
+                pid4 = fork();
+
+                if (pid4 < 0)
+                {
+                    /* erro no nascimento do neto */
+                    printf("Erro na chamada fork");
+                }
+
+                if (pid4 == 0)
+                {
+                    /* é o neto que acabou de nascer */
+
+                    sleep(1);
+                    printf("\nEu sou o processo 4 %d filho de %d", getpid(), getppid());
+                    exit(5);
+                }
+                else
+                {
+                    wait(&status4);
+
+                    if (WIFEXITED(status4))
+                    {
+                        /* Ve se o exited do neto foi ok e o filho rodou normalmente*/
+                        // TRADUZ O STATUS E MOSTRA O QUE ACONTECEU PEGA O CODIGO DO EXIT
+                        printf("\nPrograma do neto rodou normalmente com o codigo: %d", WEXITSTATUS(status4));
+                    }
+
+                    if (WIFSIGNALED(status4))
+                    {
+                        /* Ve se o neto foi interrompido */
+                        // TRADUZ O STATUS E MOSTRA O QUE ACONTECEU PEGA O CODIGO DO EXIT
+                        printf("\nPrograma do neto foi morto por um kill com o codigo: %d", WTERMSIG(status4));
+                    }
+
+                    sleep(1);
+                    printf("\nEu sou o processo 3 %d filho de %d", getpid(), getppid());
+                    exit(4 * WEXITSTATUS(status4));
+                }
+
+                printf("\nEu sou o processo 3 %d filho de %d", getpid(), getppid());
+            }
+            else
+            {
+                wait(&status3);
+
+                if (WIFEXITED(status3))
+                {
+                    /* Ve se o exited do neto foi ok e o filho rodou normalmente*/
+                    // TRADUZ O STATUS E MOSTRA O QUE ACONTECEU PEGA O CODIGO DO EXIT
+                    printf("\nPrograma do neto rodou normalmente com o codigo: %d", WEXITSTATUS(status3));
+                }
+
+                if (WIFSIGNALED(status3))
+                {
+                    /* Ve se o neto foi interrompido */
+                    // TRADUZ O STATUS E MOSTRA O QUE ACONTECEU PEGA O CODIGO DO EXIT
+                    printf("\nPrograma do neto foi morto por um kill com o codigo: %d", WTERMSIG(status3));
+                }
+
+                sleep(1);
+                printf("\nEu sou o processo 2 %d filho de %d", getpid(), getppid());
+                exit(3 * WEXITSTATUS(status3));
+            }
         }
         else
         {
-            wait(&statusneto);
+            wait(&status2);
 
-            if (WIFEXITED(statusneto))
+            if (WIFEXITED(status2))
             {
                 /* Ve se o exited do neto foi ok e o filho rodou normalmente*/
                 // TRADUZ O STATUS E MOSTRA O QUE ACONTECEU PEGA O CODIGO DO EXIT
-                printf("\nPrograma do neto rodou normalmente com o codigo: %d", WEXITSTATUS(statusneto));
+                printf("\nPrograma do neto rodou normalmente com o codigo: %d", WEXITSTATUS(status2));
             }
 
-            if (WIFSIGNALED(statusneto))
+            if (WIFSIGNALED(status2))
             {
                 /* Ve se o neto foi interrompido */
                 // TRADUZ O STATUS E MOSTRA O QUE ACONTECEU PEGA O CODIGO DO EXIT
-                printf("\nPrograma do neto foi morto por um kill com o codigo: %d", WTERMSIG(statusneto));
+                printf("\nPrograma do neto foi morto por um kill com o codigo: %d", WTERMSIG(status2));
             }
 
             sleep(1);
-            printf("\nEu sou o processo B %d filho de %d", getpid(), getppid());
+            printf("\nEu sou o processo 1 %d filho de %d", getpid(), getppid());
+            exit(2 * WEXITSTATUS(status2));
         }
     }
     else
     {
         /* é o pai que possui um pid já */
         // FAZ COM QUE O PAI ESPERE O FILHO RODAR PRIMEIRO -> &STATUS É PARA INFORMAR COMO O FILHO TERMINOU (RETURN)
-        wait(&status);
+        wait(&status1);
 
-        if (WIFEXITED(status))
+        if (WIFEXITED(status1))
         {
             /* Ve se o exited do filho foi ok e o filho rodou normalmente*/
             // TRADUZ O STATUS E MOSTRA O QUE ACONTECEU PEGA O CODIGO DO EXIT
-            printf("\nPrograma do filho rodou normalmente com o codigo: %d", WEXITSTATUS(status));
+            printf("\nPrograma do filho rodou normalmente com o codigo: %d", WEXITSTATUS(status1));
         }
 
-        if (WIFSIGNALED(status))
+        if (WIFSIGNALED(status1))
         {
             /* Ve se o filho foi interrompido */
             // TRADUZ O STATUS E MOSTRA O QUE ACONTECEU PEGA O CODIGO DO EXIT
-            printf("\nPrograma do filho foi morto por um kill com o codigo: %d", WTERMSIG(status));
+            printf("\nPrograma do filho foi morto por um kill com o codigo: %d", WTERMSIG(status1));
         }
-        
+
         sleep(1);
-        printf("\nEu sou o processo A %d filho de %d", getpid(), getppid());
+        printf("\n5 fatorial == %d\n", WEXITSTATUS(status1));
     }
 
     return 0;
