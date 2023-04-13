@@ -1,0 +1,43 @@
+#include <unistd.h> //biblioteca do write
+#include <stdio.h>
+#include <signal.h>
+#include <stdlib.h>
+
+void exemplo(int parametro){
+
+	//write(1, "Olha o valor de parâmetro SIGALARM ", 36);
+	int j = 10;
+	write(1, &j, sizeof(int)); // TODO problema ao imprimir inteiros
+	//write(1, "\n\n", 2);
+		
+}
+
+
+void exemplo2(int parametro){
+        // posix
+        // File Descriptor, string para impressão, tamanho em caracteres 
+	write(1, "olha só esta syscall!", 21);
+	write(1, "\n", 1);
+		
+}
+
+void exemplo3(int parametro){
+
+	printf("Olha o valor de parâmetro SINTSTP %i suspende a aplicação e coloca no segundo plano\n\n", parametro );
+		
+}
+
+int main()
+{
+unsigned sec ;
+     //signal(SIGTSTP, exemplo3);
+     //signal(SIGINT, exemplo2);
+     signal(SIGALRM, exemplo); /* interceptacao do sinal de alarme */
+     alarm(1);  
+     pause();
+     alarm(3);  
+     pause();
+     alarm(5);  
+     pause();
+     while(1);
+}

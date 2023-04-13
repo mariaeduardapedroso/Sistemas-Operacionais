@@ -1,0 +1,22 @@
+Quais são as interfaces que garantem a abstração para possibilitar comunicação entre
+ as seguintes camadas?
+
+    a) hardware <-> software
+
+    b) sistemas operacionais <-> bibliotecas
+
+    c) Sistemas operacionais <-> aplicações
+
+a) Para a comunicação entre hardware e software, a interface principal é o driver. 
+Os drivers são programas que permitem a comunicação entre o sistema operacional e o 
+hardware.
+
+b) Para a comunicação entre sistemas operacionais e bibliotecas, a principal interface 
+é o sistema de chamadas do sistema (system call). O sistema de chamadas do sistema é 
+uma interface entre o software do usuário e o kernel do sistema operacional.
+
+c) Para a comunicação entre sistemas operacionais e aplicações, a principal interface 
+é a API (Application Programming Interface). A API é um conjunto de funções e protocolos
+ definidos pelo sistema operacional para uso por aplicativos. As APIs são geralmente 
+ usadas para permitir que um aplicativo acesse recursos e serviços do sistema 
+ operacional.

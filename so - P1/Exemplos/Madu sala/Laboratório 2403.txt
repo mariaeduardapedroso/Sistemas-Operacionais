@@ -1,0 +1,73 @@
+Objetivo: investigar o funcionamento de processos no linux.
+
+1) Processos no linux compartilham dados?
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/wait.h>
+
+int main()
+{
+
+    int var = 0;
+    int pid;
+
+    pid = fork();
+
+    // filho
+    if (pid == 0)
+    {
+        var = 5;
+        printf("Filho: %d", var);
+    }
+    else
+    {
+        if (pid > 0)
+        {
+            var += 10;
+            printf("Pai: %d", var);
+        }
+        else
+        {
+            printf("Erro na criacao do filho");
+        }
+    }
+}
+/*
+a2150336@pxe-ubuntu:~$ gcc -o ex oi.c
+a2150336@pxe-ubuntu:~$ /ex
+bash: /ex: Arquivo ou diretório inexistente
+a2150336@pxe-ubuntu:~$ ./ex
+Pai: 10Filho: 5
+*/
+pelo que podemos notar eles não compartilham dados, cada um mainpula dados do seu endereçamento
+
+2) Quando o pai de um processo morre o filho continua existindo?
+SIM, ele continua existindo como zumbi
+
+
+
+3) Os processos compartilham arquivos?
+
+Sim, em sistemas operacionais modernos, os processos podem compartilhar arquivos de diferentes maneiras. Uma maneira comum é através do uso de mecanismos de comunicação interprocessual (IPC) como pipes, sockets e memória compartilhada.
+
+Por exemplo, um processo pode escrever em um arquivo e outro processo pode ler a partir desse arquivo, ou ambos os processos podem escrever e ler a partir do mesmo arquivo usando mecanismos IPC para coordenar o acesso. Além disso, os sistemas operacionais geralmente fornecem mecanismos de controle de acesso para garantir que apenas os processos autorizados possam acessar determinados arquivos.
+
+Também é possível que os processos compartilhem arquivos por meio de um sistema de arquivos em rede, onde vários computadores podem acessar e compartilhar arquivos em um servidor centralizado. Nesse caso, os processos em diferentes máquinas podem acessar e modificar os mesmos arquivos, desde que tenham as permissões de acesso adequadas.
+
+
+Páginas de referência
+
+https://man7.org/linux/man-pages/man3/exec.3.html
+
+https://guialinux.uniriotec.br/kill/
+
+https://man7.org/linux/man-pages/man2/wait.2.html
+
+
+
+Comandos úteis
+
+ ps -aux              | visualizar arquivos
+
+kill -signal           | Trocar sinais entre os processos

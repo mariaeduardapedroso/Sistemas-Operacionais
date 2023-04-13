@@ -1,0 +1,40 @@
+#include <unistd.h> //biblioteca do write
+#include <stdio.h>
+#include <signal.h>
+#include <stdlib.h>
+
+
+
+
+
+
+
+int main()
+{
+    long int inteiro;
+    char * msg = (char *) malloc(20*sizeof(char));
+
+    //read(0, msg , 20);
+    //write(1, "Alou Syscall!\n\n",15);
+
+    //write(1, msg, 20);
+    
+    
+    //para os alunos estudarem os tamanhos dos tipos de dados pedir nome e RA por exemplo
+    read(0, &inteiro , sizeof(long int));
+    
+    
+    
+    write(1, "\n\n",2);    
+    
+    write(1, &inteiro,sizeof(long int));    
+    
+    write(1, "\n\n",2);    
+    
+    
+    
+    
+    
+    
+    
+}

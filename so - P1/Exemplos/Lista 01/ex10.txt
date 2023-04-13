@@ -1,0 +1,46 @@
+Sobre sistemas operacionais e processos, explique:
+
+    a) o que é um processo?
+
+    b) qual a diferença entre processos e threads?
+
+    c) explique detalhadamente o porque que processos não compartilham dados.
+
+    d) como os processos são criados em um sistem baseado em linux?
+
+    e) Sobre a posix, o que o comando  execv("") faz?
+
+a) Um processo é um programa em execução em um sistema operacional. 
+Ele é composto por um ou mais threads de execução, juntamente com o espaço de 
+endereço de memória, identificadores de recursos do sistema (como arquivos abertos
+ e conexões de rede) e outros atributos do sistema necessários para sua execução.
+
+b) A principal diferença entre processos e threads é que um processo é uma entidade
+ independente com sua própria memória e recursos do sistema, enquanto uma thread 
+ compartilha recursos do processo pai. Cada processo tem pelo menos uma thread, 
+ mas pode ter várias threads, cada uma executando em paralelo. As threads compartilham 
+ o mesmo espaço de endereço de memória e outros recursos do sistema do processo pai, 
+ o que torna a comunicação entre elas mais fácil, mas também pode levar a problemas 
+ de sincronização e gerenciamento de memória compartilhada.
+
+c) Processos não compartilham dados porque eles são executados em espaços de endereço 
+de memória separados e independentes. Cada processo tem seu próprio espaço de endereço 
+de memória, que é isolado dos outros processos, o que garante a proteção dos dados de 
+um processo em relação aos outros. Isso significa que, para compartilhar dados entre 
+processos, é necessário utilizar mecanismos de comunicação interprocessos, como pipes, 
+sockets, filas de mensagens, memória compartilhada, entre outros.
+
+d) Em um sistema baseado em Linux, os processos são criados através da chamada de 
+sistema fork(), que cria uma cópia do processo pai. Após a criação do processo filho, 
+ele é executado a partir do ponto em que o processo pai fez a chamada para o fork().
+ O processo filho tem seu próprio espaço de endereço de memória, que é uma cópia do 
+ espaço de endereço do processo pai, mas pode ser modificado independentemente do 
+ processo pai. A chamada de sistema exec() pode ser utilizada para substituir a 
+ imagem do processo filho por um novo programa, que será executado a partir do início.
+
+e) O comando execv() é uma função da biblioteca POSIX que executa um programa em 
+um processo existente, substituindo a imagem do processo atual pela do programa 
+especificado. Ele recebe como argumentos o nome do programa a ser executado e um
+ vetor de argumentos a serem passados para o programa. O primeiro argumento do vetor
+  é o próprio nome do programa. Se a execução do programa for bem-sucedida, a função
+   execv() não retornará, pois o programa substituirá a imagem do processo atual.

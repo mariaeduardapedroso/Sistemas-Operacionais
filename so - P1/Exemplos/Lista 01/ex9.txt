@@ -1,0 +1,12 @@
+Explique com suas próprias palavras a frase:
+
+ " A técnica de multiprogramação possibilita aumentar a utilização da CPU."
+
+A técnica de multiprogramação é um método usado em sistemas operacionais que
+permite a execução de vários programas simultaneamente em um mesmo computador. 
+Essa técnica é possível porque a CPU é capaz de alternar rapidamente entre diferentes
+programas, dedicando pequenos intervalos de tempo para cada um deles. Dessa forma, 
+a CPU é utilizada de forma mais eficiente, pois não fica ociosa enquanto um programa 
+espera por alguma entrada ou operação de entrada/saída. Com a multiprogramação, 
+a CPU consegue executar um maior número de tarefas em um período de tempo menor, 
+o que aumenta a utilização da CPU.

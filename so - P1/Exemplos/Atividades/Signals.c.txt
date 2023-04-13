@@ -1,0 +1,48 @@
+#include <unistd.h> //biblioteca do write
+#include <stdio.h>
+#include <signal.h>
+#include <stdlib.h>
+
+
+void exemplo_alarme(int signum){
+
+    write(1, "\n\nInterrupção de Alarme!!\n\n",29);
+
+
+}
+
+
+void exemplo_tstp(int signum){
+
+
+    write(1, "\n\nInterrupção de suspensão CTRL Z!!\n\n",40);
+
+
+}
+
+
+void exemplo_interrupcao(int signum){
+
+
+    write(1, "\n\nInterrupção para terminar por parte do usuário não do SO CTRL C!!\n\n",74);
+
+
+}
+
+int main()
+{
+    
+    
+    signal(SIGTSTP, exemplo_tstp);   
+    signal(SIGALRM, exemplo_alarme);
+    signal(SIGINT, exemplo_interrupcao);
+    
+    
+    alarm(5);
+    pause(); // faz com que o processo (ou thread) hiberne até que um sinal,
+                // que encerre o processo ou cause a invocação de uma função de captura de sinal, seja entregue.
+    
+    return 0;
+    
+    
+}
