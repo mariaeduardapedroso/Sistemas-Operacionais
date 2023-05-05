@@ -32,7 +32,7 @@ int producer(int n)
         // Região critica
         data[i] = (char)i + 0x61;
         printf("Stored... %c \n", data[i]);
-        // Remainder
+        // Remainder petterson
         flags[3] = 1;
 
         flags[0] = 0;
@@ -59,7 +59,7 @@ int consumer(int n)
         data[i] = ' ';
 
         printf("Consumed... %c \n", dado);
-        // Remainder
+        // Remainder petterson
         flags[3] = 0;
 
         flags[1] = 0;
@@ -86,10 +86,16 @@ int main()
     flags = (malloc(3 * sizeof(int)));             //     2
     flags = shmat(flagsid, (void *)0, 0);          //
 
+    //0 produtor
+    //1 consumidor
+    flags[0] = 1;
+    flags[1] = 0;
+
+    flags[3]=0;
+
     // Criando processo filho
     int pid = fork();
-    flags[0] = 1;
-    flags[1] = 1;
+
 
     if (pid == 0)
     {
