@@ -86,6 +86,7 @@ int main()
     flags = (malloc(3 * sizeof(int)));             //     2
     flags = shmat(flagsid, (void *)0, 0);          //
 
+    //colocar antes do fork
     //0 produtor
     //1 consumidor
     flags[0] = 1;
